@@ -1,17 +1,4 @@
 import arcade
-arcade.open_window(800, 600, "Avión")
-def main():
-    arcade.set_background_color(arcade.color.BLUEBONNET)
-    arcade.start_render()
-    avión()
-    sol()
-    nube(500,525)
-    nube(250, 125)
-    nube(200, 425)
-    nube(700, 275)
-    #Final
-    arcade.finish_render()
-    arcade.run()
 def sol():
     arcade.draw_triangle_filled(600, 600, 650, 550, 500, 575, arcade.color.FLUORESCENT_ORANGE)
     arcade.draw_triangle_filled(610, 560, 700, 500, 525, 512, arcade.color.FLUORESCENT_ORANGE)
@@ -57,9 +44,24 @@ def avión():
     arcade.draw_circle_filled(200,500,19,arcade.color.INDIAN_RED)
     arcade.draw_circle_filled(200,510,2,arcade.color.BLACK)
     arcade.draw_rectangle_filled(190,500,20,2,arcade.color.BLACK,35)
-def dibujar_nube(x,y):
+def nube(x,y):
     arcade.draw_ellipse_filled(x,y+25,150,100,arcade.color.FLORAL_WHITE)
     arcade.draw_ellipse_filled(x,y-25,150,100,arcade.color.FLORAL_WHITE)
     arcade.draw_ellipse_filled(x+75,y,150,100,arcade.color.FLORAL_WHITE)
     arcade.draw_ellipse_filled(x-75,y,150,100,arcade.color.FLORAL_WHITE)
+def dibujo_completo(delta_time):
+    sol()
+    avión()
+    nube(dibujo_completo.nube1_x+500,525)
+    nube(dibujo_completo.nube1_x+250, 125)
+    nube(dibujo_completo.nube1_x+200, 425)
+    nube(dibujo_completo.nube1_x+700, 275)
+    dibujo_completo.nube1_x+=1
+dibujo_completo.nube1_x=0
+def main():
+    arcade.open_window(800, 600, "Avión")
+    arcade.set_background_color(arcade.color.BLUEBONNET)
+    arcade.start_render()
+    arcade.schedule(dibujo_completo,1/60)
+    arcade.run()
 main()
